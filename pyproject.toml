@@ -1,0 +1,16 @@
+[project]
+name = "asr"
+version = "0.1.0"
+description = "Children's word ASR for the DrivenData 'On Top of Pasketti' competition"
+requires-python = ">=3.12"
+dependencies = [
+    "datasets",
+    "soundfile",
+    "transformers",
+    "torch",
+    "jiwer",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
