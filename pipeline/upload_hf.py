@@ -87,15 +87,15 @@ ds = ds.cast_column("audio", Audio(sampling_rate=16_000))
 """
 
 if __name__ == "__main__":
-  api = HfApi()
-  api.create_repo(repo_id=REPO_ID, repo_type="dataset", exist_ok=True)
+    api = HfApi()
+    api.create_repo(repo_id=REPO_ID, repo_type="dataset", exist_ok=True)
 
-  print("Uploading README.md ...")
-  api.upload_file(
-    path_or_fileobj=README_CONTENT.encode(),
-    path_in_repo="README.md",
-    repo_id=REPO_ID,
-    repo_type="dataset",
-    commit_message="Update dataset README",
-  )
-  print("Done!")
+    print("Uploading README.md ...")
+    api.upload_file(
+        path_or_fileobj=README_CONTENT.encode(),
+        path_in_repo="README.md",
+        repo_id=REPO_ID,
+        repo_type="dataset",
+        commit_message="Update dataset README",
+    )
+    print("Done!")

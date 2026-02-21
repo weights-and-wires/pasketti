@@ -158,7 +158,8 @@ def validate_ipa_characters(s: str, raise_error=True) -> bool:
 
     if invalid_chars and raise_error:
         raise ValueError(
-            "Invalid IPA characters found: " + ", ".join([f"'{c}'" for c in invalid_chars])
+            "Invalid IPA characters found: "
+            + ", ".join([f"'{c}'" for c in invalid_chars])
         )
 
     return not invalid_chars
@@ -244,8 +245,14 @@ def score_jsonl(path_to_predicted: Path, path_to_actual: Path, metric="wer") -> 
     else:
         raise ValueError(f"Metric must be one of 'wer' or 'ipa_cer', got {metric}")
 
-    predicted = pd.read_json(path_to_predicted, lines=True).set_index("utterance_id").sort_index()
-    actual = pd.read_json(path_to_actual, lines=True).set_index("utterance_id").sort_index()
+    predicted = (
+        pd.read_json(path_to_predicted, lines=True)
+        .set_index("utterance_id")
+        .sort_index()
+    )
+    actual = (
+        pd.read_json(path_to_actual, lines=True).set_index("utterance_id").sort_index()
+    )
 
     text_field = "orthographic_text" if metric == "wer" else "phonetic_text"
     return metric_func(actual[text_field], predicted[text_field])
@@ -2027,6 +2034,8 @@ if __name__ == "__main__":
         print(f"Error reading {path_to_actual}: {e}")
         sys.exit(1)
 
-    print(f"Scoring {metric.upper()} between {path_to_predicted} and {path_to_actual}...")
+    print(
+        f"Scoring {metric.upper()} between {path_to_predicted} and {path_to_actual}..."
+    )
     result = score_jsonl(path_to_predicted, path_to_actual, metric=metric)
     print(f"{metric.upper()}: {result}")
